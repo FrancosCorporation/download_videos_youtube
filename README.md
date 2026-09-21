@@ -1,5 +1,23 @@
 # Download de Vídeos do YouTube
 
+## 🐳 Instalação e Execução (Docker) — recomendado
+
+### Pré-requisitos
+- [Docker](https://docs.docker.com/get-docker/) + Docker Compose
+
+### Rodar com Docker
+```bash
+docker compose up --build
+```
+O app é desktop/GUI — o container não é o fluxo recomendado. Use local.
+
+### Sem Docker (local)
+```bash
+pip install -r requirements.txt
+python download_video_youtube.py
+```
+App desktop (PySimpleGUI) — Windows/Linux com interface gráfica.
+
 Ferramenta desktop (Windows) com interface gráfica para baixar vídeos e
 playlists do YouTube, convertendo automaticamente para MP3/MP4 com **FFmpeg**.
 
