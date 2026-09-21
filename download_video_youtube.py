@@ -1,5 +1,3 @@
-import os
-os.system(f'powershell "pip install -r requirements.txt"')
 import subprocess
 import sys
 import PySimpleGUI as sg
