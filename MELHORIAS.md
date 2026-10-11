@@ -33,7 +33,7 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 | DOC-01 | README recomendava Docker inexistente | P1 | Implementado |
 | SEC-02 | Comandos de shell nos scripts legados | P2 | Implementado; scripts removidos |
 | TEST-01 | Ausência de testes automatizados | P2 | Pendente |
-| DEVOPS-01 | Ausência de CI | P2 | Workflow estático adicionado; execução remota pendente |
+| DEVOPS-01 | Ausência de CI | P2 | Implementado; workflow remoto verde em `5f774cb` |
 
 ## 3. Segurança
 
@@ -99,7 +99,7 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 - **Mudança:** adicionar workflow em push/PR para compilar o app e executar Ruff; inclui instalação reproduzível das dependências.
 - **Aceite:** workflow versionado e execução remota verde; incluir `pytest` quando TEST-01 for implementado.
 - **Verificação local:** `python -m py_compile download_video_youtube.py && ruff check download_video_youtube.py`
-- **Estado:** checks estáticos passam localmente; o push do workflow depende de uma credencial GitHub com escopo `workflow`.
+- **Estado:** workflow commitado e publicado; execução `CI` no commit `5f774cb` concluída com sucesso. O workflow só executa sintaxe e Ruff; testes seguem pendentes.
 
 ## 7. Documentação
 
@@ -117,8 +117,8 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 2. **Onda 1 — P1:** SEC-01, BUG-03 e DOC-01.
 3. **Onda 2 — P2:** SEC-02, TEST-01 e DEVOPS-01.
 
-As correções de código e documentação estão implementadas. TEST-01 e a validação do
-workflow numa execução hospedada permanecem pendentes.
+As correções de código e documentação estão implementadas. TEST-01 permanece pendente;
+a execução hospedada do workflow estática concluiu com sucesso no commit `5f774cb`.
 
 ## 9. Fora de escopo e riscos
 
@@ -135,8 +135,8 @@ workflow numa execução hospedada permanecem pendentes.
 - [x] BUG-03 — URLs validadas, erros apresentados na interface e download cancelável.
 - [x] SEC-02 — scripts legados com shell removidos.
 - [ ] TEST-01 — suíte offline pendente.
-- [ ] DEVOPS-01 — arquivo CI criado; execução remota verde pendente.
+- [x] DEVOPS-01 — arquivo CI publicado e execução remota verde em `5f774cb`.
 - [x] DOC-01 — README atualizado para o comportamento real.
 - [x] O arquivo atual compila; dois scripts legados sem uso foram removidos.
 
-*Validações estáticas executadas em 2026-10-11. Nenhum teste, login ou download real foi executado.*
+*Validações estáticas locais e CI remoto concluídos em 2026-10-11. Nenhum teste, login ou download real foi executado.*
