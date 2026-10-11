@@ -1,3 +1,2 @@
-pytube
-pysimplegui
-ffmpeg-python
+FreeSimpleGUI==5.3.0.post1
+pytubefix==11.2.0
