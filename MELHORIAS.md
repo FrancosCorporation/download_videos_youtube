@@ -116,7 +116,7 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 - **Evidência:** Python 3.10 encerrou o suporte em 2026-10-01; o README declarava compatibilidade desde 3.10 e o workflow só verificava 3.13 em `ubuntu-latest`.
 - **Mudança:** elevar o mínimo para 3.11, alinhar Ruff a `py311`, fixar Ubuntu 24.04 e executar os checks em Python 3.11 e 3.13, versões cobertas pelos classificadores do FreeSimpleGUI fixado.
 - **Referência:** [Python 3.10.22 chegou ao fim de vida em 2026-10-01](https://www.python.org/downloads/release/python-31022/); [FreeSimpleGUI 5.3.0.post1 declara suporte até Python 3.13](https://pypi.org/project/FreeSimpleGUI/5.3.0.post1/).
-- **Validação:** CI estática confirmará as duas versões depois do push; não adicionar nem executar testes.
+- **Validação:** CI `38194503976` passou com sintaxe e Ruff em Python 3.11 e 3.13 no Ubuntu 24.04; checks locais passaram em Python 3.14/Ruff 0.17.0. Nenhum teste foi adicionado ou executado.
 
 ## 7. Documentação
 
@@ -158,4 +158,4 @@ a execução hospedada do workflow estática concluiu com sucesso no commit `5f7
 - [x] DOC-01 — README atualizado para o comportamento real.
 - [x] O arquivo atual compila; dois scripts legados sem uso foram removidos.
 
-*Validações estáticas locais e CI remoto concluídos em 2026-10-11. Nenhum teste, login ou download real foi executado.*
+*Validações estáticas locais e CIs remotas `38159595991`, `38162626310` e `38194503976` concluídas em 2026-10-11. Nenhum teste, login ou download real foi executado.*
