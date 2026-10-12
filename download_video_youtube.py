@@ -85,7 +85,11 @@ def format_bytes(byte_count: int) -> str:
 
 
 def build_output_path(destination: Path, title: str, video_id: str) -> Path:
-    safe_title = re.sub(r'[<>:"/\\|?*\x00-\x1f]', "_", title)
+    safe_title = re.sub(
+        r'[<>:"/\\|?*\x00-\x1f\x7f-\x9f\u061c\u200e\u200f\u202a-\u202e\u2066-\u206f\ufeff]',
+        "_",
+        title,
+    )
     safe_title = safe_title.strip(" .")[:100].rstrip(" .") or "video"
     stem = f"{safe_title} [{video_id}]"
     candidate = destination / f"{stem}.mp4"

@@ -7,7 +7,7 @@ não são sobrescritos.
 
 ## Requisitos
 
-- Python 3.10 a 3.13.
+- Python 3.11 a 3.13.
 - Tcl/Tk disponível no Python para abrir a interface. No Ubuntu/Debian, instale-o com
   `sudo apt install python3-tk`.
 - Uma interface gráfica ativa. Este aplicativo não funciona em um terminal sem desktop.

@@ -1,6 +1,6 @@
 # MELHORIAS — download_videos_youtube
 
-> **Atualizado:** 2026-10-11 · Python 3.10–3.13 · GUI desktop · branch `master`
+> **Atualizado:** 2026-10-11 · Python 3.11–3.13 · GUI desktop · branch `master`
 > **Escopo:** baixar um vídeo em MP4 com FreeSimpleGUI e pytubefix.
 
 ## 0. Como usar este documento
@@ -30,6 +30,7 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 | BUG-02 | Dependência de PowerShell e caminho Windows | P0 | Implementado |
 | SEC-01 | Dependências sem pin e pytube desatualizado | P1 | Implementado |
 | BUG-03 | URL inválida e falhas sem tratamento amigável | P1 | Implementado |
+| SEC-03 | Controles invisíveis/bidirecionais em títulos remotos | P1 | Implementado |
 | DOC-01 | README recomendava Docker inexistente | P1 | Implementado |
 | SEC-02 | Comandos de shell nos scripts legados | P2 | Implementado; scripts removidos |
 | TEST-01 | Ausência de testes automatizados | P2 | Pendente |
@@ -52,6 +53,14 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 - **Mudança:** remover os dois experimentos sem uso; o aplicativo principal não executa comandos de shell.
 - **Aceite:** nenhum script Python contém `os.system`, PowerShell, `setx` ou instalação de pacote em runtime.
 - **Verificação:** `rg -n 'os\.system|powershell|setx|pip install' --glob '*.py' .`
+
+### SEC-03 · Controles no título usado como nome de arquivo · [P1]
+
+- **Arquivo:** `download_video_youtube.py`, `build_output_path`
+- **Evidência:** o título vem da resposta remota e era incorporado ao nome. A filtragem removia C0, mas preservava C1, controles bidi e caracteres invisíveis que podem inverter ou confundir a exibição do nome.
+- **Mudança:** substituir controles C0/C1, marcas direcionais e caracteres de isolamento bidi por `_` antes de formar o caminho.
+- **Aceite:** o ID ainda distingue o vídeo e controles invisíveis não mudam a apresentação do nome no sistema de arquivos.
+- **Verificação estática:** `rg -n 'build_output_path|x7f-\x9f|u202a-\u202e' download_video_youtube.py`
 
 ## 4. Bugs e defeitos funcionais
 
@@ -101,6 +110,14 @@ em versões publicadas no PyPI; os experimentos obsoletos foram removidos.
 - **Verificação local:** `python -m py_compile download_video_youtube.py && ruff check download_video_youtube.py`
 - **Estado:** workflow commitado e publicado; execução `CI` no commit `5f774cb` concluída com sucesso. O workflow só executa sintaxe e Ruff; testes seguem pendentes.
 
+### DEVOPS-02 · Python 3.10 sem suporte e CI em uma versão · [P1]
+
+- **Arquivos:** `README.md`, `pyproject.toml`, `.github/workflows/ci.yml`
+- **Evidência:** Python 3.10 encerrou o suporte em 2026-10-01; o README declarava compatibilidade desde 3.10 e o workflow só verificava 3.13 em `ubuntu-latest`.
+- **Mudança:** elevar o mínimo para 3.11, alinhar Ruff a `py311`, fixar Ubuntu 24.04 e executar os checks em Python 3.11 e 3.13, versões cobertas pelos classificadores do FreeSimpleGUI fixado.
+- **Referência:** [Python 3.10.22 chegou ao fim de vida em 2026-10-01](https://www.python.org/downloads/release/python-31022/); [FreeSimpleGUI 5.3.0.post1 declara suporte até Python 3.13](https://pypi.org/project/FreeSimpleGUI/5.3.0.post1/).
+- **Validação:** CI estática confirmará as duas versões depois do push; não adicionar nem executar testes.
+
 ## 7. Documentação
 
 ### DOC-01 · README incompatível com o projeto · [P1]
@@ -133,9 +150,11 @@ a execução hospedada do workflow estática concluiu com sucesso no commit `5f7
 - [x] BUG-02 — removidos PowerShell, caminho Windows e dependência de FFmpeg.
 - [x] SEC-01 — dependências fixadas e pacote de download atualizado.
 - [x] BUG-03 — URLs validadas, erros apresentados na interface e download cancelável.
+- [x] SEC-03 — controles C0/C1 e bidirecionais removidos dos nomes.
 - [x] SEC-02 — scripts legados com shell removidos.
 - [ ] TEST-01 — suíte offline pendente.
 - [x] DEVOPS-01 — arquivo CI publicado e execução remota verde em `5f774cb`.
+- [x] DEVOPS-02 — mínimo Python 3.11 e CI em duas versões suportadas.
 - [x] DOC-01 — README atualizado para o comportamento real.
 - [x] O arquivo atual compila; dois scripts legados sem uso foram removidos.
 
